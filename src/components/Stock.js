@@ -9,7 +9,7 @@ const Stock = () => (
             //Company Name
           }</h5>
         <p className="card-text">{
-            //stock name : stock price
+            //ticker: stock price
           }</p>
         <button className="btn btn-primary">Buy Stock</button>
       </div>
