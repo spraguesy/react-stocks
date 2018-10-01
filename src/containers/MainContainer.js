@@ -22,16 +22,16 @@ class MainContainer extends Component {
       <Fragment>
         <SearchBar/>
 
-          <div class="row">
-            <div class="col-8">
+          <div className="row">
+            <div className="col-8">
 
               <StockContainer/>
 
             </div>
-            <div class="col-4">
+            <div className="col-4">
 
               <PortfolioContainer/>
-              
+
             </div>
           </div>
       </Fragment>
