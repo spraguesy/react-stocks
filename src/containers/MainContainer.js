@@ -21,13 +21,17 @@ class MainContainer extends Component {
     return (
       <Fragment>
         <SearchBar/>
-        
+
           <div class="row">
             <div class="col-8">
+
               <StockContainer/>
+
             </div>
             <div class="col-4">
+
               <PortfolioContainer/>
+              
             </div>
           </div>
       </Fragment>
