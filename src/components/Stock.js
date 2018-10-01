@@ -1,17 +1,17 @@
 import React,{Fragment} from 'react'
 
-const Stock = () => (
+const Stock = (props) => (
   <Fragment>
 
     <div className="card">
       <div className="card-body">
         <h5 className="card-title">{
-            //Company Name
+            props.stock.name
           }</h5>
         <p className="card-text">{
-            //ticker: stock price
+            `${props.stock.ticker} : ${props.stock.price}`
           }</p>
-        <button className="btn btn-primary">Buy Stock</button>
+        <button className="btn btn-primary" onClick={() => props.addStock(props.stock)}>Buy Stock</button>
       </div>
     </div>
 

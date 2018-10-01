@@ -5,32 +5,87 @@ import SearchBar from '../components/SearchBar'
 
 class MainContainer extends Component {
 
-  handleInput(){
-
+  constructor(props) {
+    super(props);
+    this.state =
+    {
+      stocks: [],
+      boughtStocks: [],
+      filterTerm: "",
+      sortBy: "",
+      selectSort: "All"
+    };
   }
 
-  handleRadio(){
-
+  componentDidMount() {
+    fetch("http://localhost:3000/stocks")
+    .then(res => res.json())
+    .then(stocks => this.setState({stocks: stocks}))
   }
 
-  handleSelect(){
+  addStock = (stock) => {
+    const stocksArr = [... this.state.boughtStocks, stock]
+    this.setState({boughtStocks: stocksArr})
+    // this.setState((prevState) => {
+    //   return {boughtStocks: [...prevState.boughtStocks, stock]}
+    // })
+  }
 
+  handleInput = (event) => {
+    this.setState({filterTerm: event.target.value.toLowerCase()})
+  }
+
+  handleRadio= (event) => {
+    this.setState({sortBy: event.target.value})
+  }
+
+  handleSelect = (event) =>{
+    this.setState({selectSort: event.target.value})
+  }
+
+  chooseStocks = () => {
+    let tempStocks = [...this.state.stocks]
+    //filtering first by name and/or ticker
+    if(this.state.filterTerm){
+      tempStocks = this.state.stocks.filter(stock => stock.name.toLowerCase().includes(this.state.filterTerm) || stock.ticker.toLowerCase().includes(this.state.filterTerm))
+    }
+
+    if(this.state.selectSort === "All"){
+      tempStocks = [...this.state.stocks]
+    } else {
+      tempStocks = tempStocks.filter(stock => stock.type === this.state.selectSort)
+    }
+    //sort
+    if(this.state.sortBy === "Alphabetically"){
+      return tempStocks.sort((stockA, stockB) => stockA.name.localeCompare(stockB.name))
+    }else if(this.state.sortBy === "Price"){
+      return tempStocks.sort((stockA, stockB) => stockA.price - stockB.price)
+    } else{
+      return tempStocks
+    }
   }
 
   render() {
     return (
       <Fragment>
-        <SearchBar/>
+        <SearchBar
+          handleInput={this.handleInput}
+          filterTerm={this.state.filterTerm}
+          handleRadio={this.handleRadio}
+          sortBy={this.state.sortBy}
+          handleSelect={this.handleSelect}
+          selectSort={this.state.selectSort}
+        />
 
           <div className="row">
             <div className="col-8">
 
-              <StockContainer/>
+              <StockContainer stocks={this.chooseStocks()} addStock={this.addStock}/>
 
             </div>
             <div className="col-4">
 
-              <PortfolioContainer/>
+              <PortfolioContainer boughtStocks={this.state.boughtStocks}/>
 
             </div>
           </div>

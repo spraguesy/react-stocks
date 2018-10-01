@@ -8,7 +8,7 @@ class PortfolioContainer extends Component {
         <ul className="list-group">
           <h2>My Portfolio</h2>
           {
-            //render your portfolio stocks here
+            this.props.boughtStocks.map(stock => <PortfolioStock key={stock.id} stock={stock}/>)
           }
         </ul>
       </Fragment>
