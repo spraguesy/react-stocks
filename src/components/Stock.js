@@ -1,22 +1,23 @@
-import React,{Fragment} from 'react'
+import React, { Fragment } from "react";
 
-const Stock = () => (
-  <Fragment>
-
-    <div className="card">
-      <div className="card-body">
-        <h5 className="card-title">{
-            //Company Name
-          }</h5>
-        <p className="card-text">{
-            //ticker: stock price
-          }</p>
-        <button className="btn btn-primary">Buy Stock</button>
+const Stock = props => {
+  const { ticker, name, price, type } = props.stock;
+  return (
+    <Fragment>
+      <div className="card">
+        <div className="card-body">
+          <h5 className="card-title">{name}</h5>
+          <p className="card-text">{price}</p>
+          <button
+            className="btn btn-primary"
+            onClick={() => props.buyStock(props.stock)}
+          >
+            Buy Stock
+          </button>
+        </div>
       </div>
-    </div>
+    </Fragment>
+  );
+};
 
-
-  </Fragment>
-);
-
-export default Stock
+export default Stock;
